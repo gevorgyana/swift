@@ -117,10 +117,13 @@ Optional<Version> Version::parseCompilerVersionString(
   auto checkVersionComponent = [&](unsigned Component, SourceRange Range) {
     unsigned limit = CV.Components.empty() ? 9223371 : 999;
 
+
     if (Component > limit) {
+			/*
       if (Diags)
         Diags->diagnose(Range.Start,
                         diag::compiler_version_component_out_of_range, limit);
+			*/
       isValidVersion = false;
     }
   };
@@ -132,8 +135,10 @@ Optional<Version> Version::parseCompilerVersionString(
 
     // Version components can't be empty.
     if (SplitComponent.empty()) {
+			/*
       if (Diags)
         Diags->diagnose(Range.Start, diag::empty_version_component);
+			*/
       isValidVersion = false;
       continue;
     }
@@ -141,9 +146,11 @@ Optional<Version> Version::parseCompilerVersionString(
     // The second version component isn't used for comparison.
     if (i == 1) {
       if (!SplitComponent.equals("*")) {
+				/*
         if (Diags)
           Diags->diagnose(Range.Start, diag::unused_compiler_version_component)
           .fixItReplaceChars(Range.Start, Range.End, "*");
+				*/
       }
 
       CV.Components.push_back(0);
@@ -156,15 +163,19 @@ Optional<Version> Version::parseCompilerVersionString(
       CV.Components.push_back(ComponentNumber);
       continue;
     } else {
+			/*
       if (Diags)
         Diags->diagnose(Range.Start, diag::version_component_not_number);
+			*/
       isValidVersion = false;
     }
   }
 
   if (CV.Components.size() > 5) {
+		/*
     if (Diags)
       Diags->diagnose(Loc, diag::compiler_version_too_many_components);
+		*/
     isValidVersion = false;
   }
 
@@ -181,8 +192,10 @@ Optional<Version> Version::parseVersionString(StringRef VersionString,
   // Skip over quote character in string literal.
 
   if (VersionString.empty()) {
+		/*
     if (Diags)
       Diags->diagnose(Loc, diag::empty_version_string);
+		*/
     return None;
   }
 
@@ -198,8 +211,10 @@ Optional<Version> Version::parseVersionString(StringRef VersionString,
 
     // Version components can't be empty.
     if (SplitComponent.empty()) {
+			/*
       if (Diags)
         Diags->diagnose(Range.Start, diag::empty_version_component);
+			*/
 
       isValidVersion = false;
       continue;
@@ -210,9 +225,11 @@ Optional<Version> Version::parseVersionString(StringRef VersionString,
       TheVersion.Components.push_back(ComponentNumber);
       continue;
     } else {
+			/*
       if (Diags)
         Diags->diagnose(Range.Start,
                         diag::version_component_not_number);
+			*/
       isValidVersion = false;
     }
   }

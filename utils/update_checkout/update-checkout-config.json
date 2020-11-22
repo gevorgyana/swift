@@ -50,14 +50,14 @@
         "swift-format": {
             "remote": { "id": "apple/swift-format" } },
         "llvm-project": {
-            "remote": { "id": "apple/llvm-project" } }
+            "remote": { "id": "gevorgyana/llvm-project" } }
     },
     "default-branch-scheme": "main",
     "branch-schemes": {
        "main": {
             "aliases": ["master", "swift/main", "main"],
             "repos": {
-                "llvm-project": "swift/main",
+                "llvm-project": "works_with_swift",
                 "swift": "main",
                 "cmark": "main",
                 "llbuild": "main",
